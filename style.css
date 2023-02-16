@@ -1,31 +1,56 @@
 
 .bg {
-    background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).webp");
+    /* background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).webp");
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
+    background-image: url("https://source.unsplash.com/1600x900/?weather");
    }
 .vertical-center {
   margin: 0;
-  position: absolute;
-  top: 50%;
-  left:10%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  /* background: rgb(250, 234, 234); */
-    background: rgba(49, 47, 47, 0.5);
+  background: rgba(49, 47, 47, 0.5);
 }
+.bg-box{
+  background: rgba(49, 47, 47, 0.8);
+  
+}
+#temp{
+  font-size: 2rem;
+}
+#box{
+  width:350px;
+}
+@media (max-width: 567px) {
+  #temp {
+    font-size: 1rem;
+  }  
+}
+@media (max-width: 567px) {
+#box {
+    width: 150px;
+  }
+}
+
+.txt{
+  width:150px;
+}
+.scroll{
+  overflow-x: scroll;
+}
+
+ .scroll::-webkit-scrollbar {
+   display: none;
+ }
+
 #marker{
   display: none;
   font-size: 30px;
 }
-.center {
-  width: 50%;
-  text-align: center;
-}
-body,
+
+/* body,
 html {
     height: 100%;
-}
+} */
 /* *{
     border:1px solid yellow;
 } */
+
