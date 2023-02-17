@@ -7,29 +7,35 @@
    }
 .vertical-center {
   margin: 0;
-  background: rgba(49, 47, 47, 0.5);
+  background: rgba(49, 47, 47, 0.9);
 }
-.bg-box{
-  background: rgba(49, 47, 47, 0.8);
-  
-}
+
 #temp{
-  font-size: 2rem;
+  font-size: 2.3rem;
 }
 #box{
-  width:350px;
+  width:500px;
+  border-radius: 20px;
+}
+input[type=email] {
+  border:none;
+  background-color: #555a5a;
+  color: white;
+  
+}
+.bt{
+  background-color:#555a5a;
 }
 @media (max-width: 567px) {
   #temp {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }  
 }
 @media (max-width: 567px) {
 #box {
-    width: 150px;
+    width: 250px;
   }
 }
-
 .txt{
   width:150px;
 }
@@ -45,12 +51,3 @@
   display: none;
   font-size: 30px;
 }
-
-/* body,
-html {
-    height: 100%;
-} */
-/* *{
-    border:1px solid yellow;
-} */
-
