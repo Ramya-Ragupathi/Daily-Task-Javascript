@@ -51,3 +51,6 @@ input[type=email] {
   display: none;
   font-size: 30px;
 }
+#dis-icon{
+  display: none;
+}

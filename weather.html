@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WEB APPLICATION</title>
+    <title>WEATHER APPLICATION</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -34,7 +34,7 @@
     />
   </head>
 
-  <body onload="Weatherfunc()" class="d-flex bg h-100">
+  <body  class="d-flex bg h-100">
     <div class="container-fluid d-flex text-light" style="padding-top: 70px">
       <div class="container vertical-center rounded">
         <div class="container pt-3">
@@ -46,11 +46,14 @@
                   class="form-control rounded-left search-bar"
                   placeholder="Enter Your City..."
                   id="textuser"
+                  
                 />
                 <div class="input-group-append" id="bt">
                   <button
+                  
                     class=" rounded-right border-0 search-button bt"
                     id="btn1"
+                    onclick="Weatherfunc()"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="36" fill="currentColor" class="bi bi-search svgicon" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -58,10 +61,20 @@
                   </button>
                 </div>
               </div>
-           
-            
+           <div style="max-height: 150px;color: black;cursor: pointer;overflow-y: scroll;z-index: 3;width:500px"
+      class="position-absolute mt-5 border border-1 rounded rounded-2 bg-white p-2 autocomplete d-none"
+      id="populate">
+      <div class="d-grid border-bottom py-1">
+        <span class="fs-low">  </span>
+        <span class="base-text"></span>
+      </div>
+    </div>
           </div>
+         
         </div>
+
+            
+
         <div class="container">
           <div class="row d-flex  pt-1">
               <div class="row">
@@ -72,7 +85,7 @@
                     
                 </div>
               </div>
-              <div class="row ">
+              <div class="row " >
                   <div class="col">
                   <div class="d-flex">
                     <i class="fa fa-map-marker pe-2" id="marker"></i>
@@ -81,19 +94,20 @@
                   <p id="state"></p>
                   
               </div>
-              <div class="col d-flex justify-content-end">
+              <div class="col " id="dis-icon" >
+               <div class="d-flex justify-content-end">
                 <div>
-                  <img class="icon1  " style="width:70px;height: 50px;"  src="" />
+                  <img class="icon1  " style="width:70px;height: 50px;"  src=""  />
                   <p id="time" class="pl-2"></p><br>
-                   
-                </div>
+               </div>
                <div class="pl-3">
-                 <img src=""  id="sunrisesvg" style="width:50px;height: 50px;">
+                 <img src=""  id="sunrisesvg"  style="width:50px;height: 50px;">
                  <p id="sunrise" ></p>
                </div>
-                <div class="pl-3">
+               <div class="pl-3" >
                  <img src=""  id="sunsetsvg" style="width:50px;height: 50px;">
-                <p id="sunset" ></p>
+                 <p id="sunset" ></p>
+               </div>
                </div>
               </div>
             </div>
@@ -130,99 +144,6 @@
         </div>
       </div>
     </div>
-    <script >
-       const Weatherfunc = () => {
-  var city = document.getElementById("textuser").value;
-  
-  console.log("city", city);
-  navigator.geolocation.getCurrentPosition(async (location) => {
-    var response;
-    try {
-      if (city === "") {
-        response = await fetch(
-          "https://api.weatherapi.com/v1/forecast.json?key=55abcd02053e4c45804112932231402&q=" +
-            location.coords.latitude +
-            "," +
-            location.coords.longitude +
-            "&aqi=no&days=6"
-        );
-      } else {
-        response = await fetch(
-          "https://api.weatherapi.com/v1/forecast.json?key=55abcd02053e4c45804112932231402&q=" +
-            city +
-            "&aqi=no&days=8"
-        );
-      }
-
-            let data = await response.json();
-
-         console.log(data);
-        
-            document.getElementById("name").innerHTML =  data.location.name ;
-            document.getElementById("state").innerHTML =  data.location.region+"<br>" + data.location.tz_id;
-            document.getElementById("temp").innerHTML = data.current.temp_f + "°F" + "/" + data.current.temp_c + "°C";
-            
-             document.getElementById("sunrise").innerHTML =  data.forecast.forecastday[0].astro.sunrise;
-             document.getElementById("sunrisesvg").src="sunrise.svg";
-             document.getElementById("sunset").innerHTML =  data.forecast.forecastday[0].astro.sunset;
-             document.getElementById("sunsetsvg").src="sunset.svg";
-              
-
-            document.getElementById("windspeed").src="wind.svg";
-            document.getElementById("humi").src="humidity.svg";
-            document.getElementById("wind_kph").innerHTML = "wind speed  : " + data.current.wind_kph;
-            document.getElementById("humidity").innerHTML ="Humidity : " + data.current.humidity;
-              const icon1  = data.current.condition.icon;
-            document.querySelector(".icon1").src = "https:"+icon1;
-           
-            const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-            const d1 = data.location.localtime;
-            const date1 = new Date(d1);
-            let day1= weekday[date1.getDay()];
-            console.log(day1);
-            document.getElementById("time").innerHTML =day1;
-
-           let daily_weather = "";
-           data.forecast.forecastday.map(weather => {
-           const d = weather.date;
-           console.log(d);
-           let date = new Date(d);
-           let day = weekday[date.getDay()];
-           console.log("day",day);
-           daily_weather = daily_weather + `
-          <div class="col">
-          <div class="d-flex" style="padding-left:10px">
-            <p id="date1" style="padding-right:5px;text-align:center">${date.toString().slice(8,10)}</p> 
-            <p id="date1">${date.toString().slice(0,4)}</p>
-         </div>
-            <img class="icon2" src="https:${weather.day.condition.icon} " />
-            <p id="day1tempc" style="padding-left:10px">${weather.day.avgtemp_f}°F</p>
-            <p id="day1tempf"></p>
-        </div>
-  `
-      })
-         console.log(daily_weather);
-         document.getElementById("daily-weather").innerHTML = daily_weather;
-
-         document.getElementById("marker").style.display="block";
-          } catch (error) {
-         alert("invalid");
-    }
-  });
-};
-document.querySelector(".search-button").addEventListener("click", function () {
-     Weatherfunc();
-     
-   });
-document.querySelector(".search-bar").addEventListener("keyup", function(event){
-    if(event.key=="Enter"){
-     Weatherfunc();
-     
-    }
-
-});
-    
-  
-    </script>
+      <script src="script.js"></script>
   </body>
 </html>
